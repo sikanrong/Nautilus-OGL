@@ -32,6 +32,7 @@
 #include "file-manager/fm-icon-view.h"
 #include "file-manager/fm-list-view.h"
 #include "file-manager/fm-tree-view.h"
+#include "file-manager/fm-ogl-view.h"
 #if ENABLE_EMPTY_VIEW
 #include "file-manager/fm-empty-view.h"
 #endif /* ENABLE_EMPTY_VIEW */
@@ -313,6 +314,7 @@ nautilus_application_init (NautilusApplication *application)
 	fm_desktop_icon_view_register ();
 	fm_list_view_register ();
 	fm_compact_view_register ();
+	fm_ogl_view_register();
 #if ENABLE_EMPTY_VIEW
 	fm_empty_view_register ();
 #endif /* ENABLE_EMPTY_VIEW */

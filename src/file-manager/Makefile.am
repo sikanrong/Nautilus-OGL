@@ -32,6 +32,12 @@ libnautilus_file_manager_la_SOURCES=	\
 	fm-list-view-private.h 		\
 	fm-list-view.c			\
 	fm-list-view.h 			\
+	fm-ogl-view.c			\
+	fm-ogl-view.h			\
+	fm-ogl-model.c			\
+	fm-ogl-model.h			\
+	fm-ogl-cairo-rendering.c 	\
+	fm-ogl-cairo-rendering.h 	\
 	fm-properties-window.c		\
 	fm-properties-window.h 		\
 	fm-tree-model.c			\

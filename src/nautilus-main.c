@@ -360,6 +360,7 @@ main (int argc, char *argv[])
 #endif
 	
 	g_thread_init (NULL);
+	glutInit(&argc, argv);
 
 	/* This will be done by gtk+ later, but for now, force it to GNOME */
 	g_desktop_app_info_set_desktop_env ("GNOME");
