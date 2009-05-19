@@ -89,9 +89,12 @@ G_DEFINE_TYPE_WITH_CODE (FMOGLView, fm_ogl_view, FM_TYPE_DIRECTORY_VIEW,
 
 #define parent_class fm_ogl_view_parent_class
 
+
 static const GtkActionEntry ogl_view_entries[] = {
 
 };
+
+
 
 struct FMOGLViewDetails {
 	GtkActionGroup *ogl_action_group;

@@ -28,7 +28,7 @@
 #include "fm-directory-view.h"
 
 
-#define FM_TYPE_OGL_VIEW fm_list_view_get_type()
+#define FM_TYPE_OGL_VIEW fm_ogl_view_get_type()
 #define FM_OGL_VIEW(obj) \
   (G_TYPE_CHECK_INSTANCE_CAST ((obj), FM_TYPE_OGL_VIEW, FMOGLView))
 #define FM_OGL_VIEW_CLASS(klass) \

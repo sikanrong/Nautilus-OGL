@@ -49,4 +49,5 @@ m4/ltsugar.m4
 m4/ltversion.m4
 m4/lt~obsolete.m4
 setup_environment_vars.sh
-
+m4/shave
+m4/shave-libtool

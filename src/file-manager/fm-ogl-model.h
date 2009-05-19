@@ -10,7 +10,7 @@
 #ifndef FM_OGL_MODEL_H
 #define FM_OGL_MODEL_H
 
-#define FM_TYPE_OGL_MODEL fm_list_model_get_type()
+#define FM_TYPE_OGL_MODEL fm_ogl_model_get_type()
 #define FM_OGL_MODEL(obj) \
   (G_TYPE_CHECK_INSTANCE_CAST ((obj), FM_TYPE_OGL_MODEL, FMOGLModel))
 #define FM_OGL_MODEL_CLASS(klass) \
