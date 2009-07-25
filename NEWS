@@ -1,3 +1,20 @@
+Major changes in 2.27.4 are:
+* Add support for starting and stopping drives
+* Use the new GVfs metadata framework
+* Support new style unmount operations; this will provide a nice dialog when
+  unmounting a busy drive mount
+* Add application icons to the Open With context menu
+* Reload xdg-user-dirs according to the user preferences
+
+Major changes in 2.27.2 are:
+* Support ctrl-drop in list view
+* Allow user defined keyboard shortcuts for extension items
+* Fix crash on click on toolbar
+* Fix crash on entering empty location
+* Added daemon-mode (don't exit with last window)
+* Display info about the selected item in the information sidebar
+* Sort applications in open with
+
 Major changes in 2.27.1 are:
 * Drop GTK+ deprecated symbols
 * Display the application icon in the popup menu

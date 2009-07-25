@@ -235,6 +235,10 @@ typedef struct
  * YOU SHOULD EDIT THE SCHEMAS FILE TO CHANGE DEFAULTS.
  */
 static const PreferenceDefault preference_defaults[] = {
+	{ NAUTILUS_PREFERENCES_EXIT_WITH_LAST_WINDOW,
+	  PREFERENCE_BOOLEAN,
+	  GINT_TO_POINTER (TRUE)
+	},
 	{ NAUTILUS_PREFERENCES_SHOW_HIDDEN_FILES,
 	  PREFERENCE_BOOLEAN,
 	  GINT_TO_POINTER (FALSE)
@@ -841,4 +845,6 @@ nautilus_global_preferences_init (void)
 				 GCONF_CLIENT_PRELOAD_ONELEVEL);
 	eel_gconf_preload_cache ("/apps/nautilus/icon_view",
 				 GCONF_CLIENT_PRELOAD_ONELEVEL);
+	eel_gconf_preload_cache ("/apps/nautilus/desktop-metadata",
+				 GCONF_CLIENT_PRELOAD_RECURSIVE);
 }
