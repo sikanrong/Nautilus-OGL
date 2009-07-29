@@ -60,13 +60,14 @@ fm_ogl_cairo_render_hud(gdouble block_pixels, gfloat total_width, gfloat total_h
 		gfloat hud_width = right-left;
 		gfloat hud_height = bottom-top;
 
-		gfloat entry_start[] = {((hud_width/(file_entries_length/3))*col), ((hud_height/3)*row)};
-		gfloat block_side_length = (hud_height/3)-3;
+		gfloat block_side_length = (hud_height/3);
+		gfloat hud_block_padding = 3;
+		gfloat entry_start[] = {(block_side_length*col), (block_side_length*row)};
 
 		gfloat entry_left = left+entry_start[0];
-		gfloat entry_right = left+entry_start[0] + block_side_length;
+		gfloat entry_right = (left+entry_start[0] + block_side_length)-hud_block_padding;
 		gfloat entry_top = entry_start[1];
-		gfloat entry_bottom = entry_start[1] + block_side_length;
+		gfloat entry_bottom = (entry_start[1] + block_side_length)-hud_block_padding;
 
 		glColor3f(0.0f,0.0f,0.0f); glVertex2f(entry_left, entry_top);
 		glColor3f(0.0f,0.0f,0.0f); glVertex2f(entry_right, entry_top);
