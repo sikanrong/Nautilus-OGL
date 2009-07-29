@@ -43,36 +43,50 @@ fm_ogl_cairo_render_hud(gdouble block_pixels, gfloat total_width, gfloat total_h
 	glDepthMask(GL_FALSE);
 	glDisable( GL_LIGHTING );
 	glPushAttrib( GL_DEPTH_BUFFER_BIT | GL_LIGHTING_BIT );
-        
-        //DO DRAWING HERE
+
+    //DO DRAWING HERE
+
+    //draw screen
+    glBegin(GL_LINES);
+
+    gfloat hud_reduction_factor = 6.0;
+    gfloat screen_width = (total_width*(1/hud_reduction_factor));
+    gfloat screen_height = (total_height*(1/hud_reduction_factor));
+    gfloat hud_pixels_from_bottom = screen_height+15;
+
+    gfloat screen_left = ((total_width/2)-(screen_width/2));
+    gfloat screen_top = (total_height-hud_pixels_from_bottom);
+    gfloat screen_right = screen_left+screen_width;
+    gfloat screen_bottom = screen_top+screen_height;
+
+	glColor3f(0.0f,0.0f,0.0f);
+	glVertex2f(screen_left, screen_top); glVertex2f(screen_right, screen_top); //top
+	glVertex2f(screen_right, screen_top); glVertex2f(screen_right, screen_bottom); //right
+	glVertex2f(screen_right, screen_bottom); glVertex2f(screen_left, screen_bottom); //bottom
+	glVertex2f(screen_left, screen_bottom); glVertex2f(screen_left, screen_top); //left
+
+	glEnd();
+
 	glBegin(GL_QUADS);
 	gint file_entries_length = g_sequence_get_length(file_entries);
 	int entry_i;
 	for(entry_i = 0; entry_i < file_entries_length; entry_i++){
-		gfloat top = total_height-40;
-		gfloat bottom = total_height;
-		gfloat right = inner_right;
-		gfloat left = inner_left;
-
 		gfloat row = entry_i%3;
 		gfloat col = entry_i/3;
+		gfloat total_hud_width = (inner_right - inner_left)*(1/hud_reduction_factor);
+		gfloat total_hud_block_size = block_pixels*(1/hud_reduction_factor);
+		gfloat total_hud_padding = block_pixels*(1/hud_reduction_factor)*0.1;
 
-		gfloat hud_width = right-left;
-		gfloat hud_height = bottom-top;
+		gfloat entry_left = (screen_left)+(((inner_left)*(1/hud_reduction_factor))+(col*(total_hud_padding+total_hud_block_size)));
+		gfloat entry_top = (screen_top+((screen_height/2)-((total_hud_block_size+total_hud_padding)*1.5)))+(row*(total_hud_padding+total_hud_block_size));
+		gfloat entry_right = entry_left+total_hud_block_size;
+		gfloat entry_bottom = entry_top+total_hud_block_size;
 
-		gfloat block_side_length = (hud_height/3);
-		gfloat hud_block_padding = 3;
-		gfloat entry_start[] = {(block_side_length*col), (block_side_length*row)};
+		glVertex2f(entry_left, entry_top);
+		glVertex2f(entry_right, entry_top);
+		glVertex2f(entry_right, entry_bottom);
+		glVertex2f(entry_left, entry_bottom);
 
-		gfloat entry_left = left+entry_start[0];
-		gfloat entry_right = (left+entry_start[0] + block_side_length)-hud_block_padding;
-		gfloat entry_top = entry_start[1];
-		gfloat entry_bottom = (entry_start[1] + block_side_length)-hud_block_padding;
-
-		glColor3f(0.0f,0.0f,0.0f); glVertex2f(entry_left, entry_top);
-		glColor3f(0.0f,0.0f,0.0f); glVertex2f(entry_right, entry_top);
-		glColor3f(0.0f,0.0f,0.0f); glVertex2f(entry_right, entry_bottom);
-		glColor3f(0.0f,0.0f,0.0f); glVertex2f(entry_left, entry_bottom);
 	}
 	glEnd();
 
