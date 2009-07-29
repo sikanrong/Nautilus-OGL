@@ -31,6 +31,6 @@ void fm_ogl_cairo_render_file_entry (cairo_t **pCairoContext, eel_ref_str filena
 void fm_ogl_cairo_create_ogl_texture (FileEntryOglDetails *file_ogl_details);
 void fm_ogl_cairo_draw_file(int index, GLuint *auiColorBuffer, gdouble scroll_position, gdouble zoom_position, gdouble* bounding_box_rect, gdouble* file_side_length);
 void fm_ogl_cairo_do_gradient(gdouble target, gdouble *current, gdouble delta_devide, gdouble tolerance);
-void fm_ogl_cairo_render_hud(gdouble block_pixels, gfloat total_width, gfloat total_height, gdouble* inner_bounding_rect);
+void fm_ogl_cairo_render_hud(gdouble block_pixels, gfloat total_width, gfloat total_height, gdouble* inner_bounding_rect, GSequence* file_entries);
 
 #endif /*FMOGLCAIRORENDERING_H_*/

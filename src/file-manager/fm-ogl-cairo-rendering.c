@@ -23,7 +23,7 @@ fm_ogl_cairo_render_create_context (guchar **pTextureData, cairo_surface_t **pCa
 }
 
 void 
-fm_ogl_cairo_render_hud(gdouble block_pixels, gfloat total_width, gfloat total_height, gdouble* inner_bounding_rect)
+fm_ogl_cairo_render_hud(gdouble block_pixels, gfloat total_width, gfloat total_height, gdouble* inner_bounding_rect, GSequence* file_entries)
 {
     glMatrixMode (GL_PROJECTION);
     glPushMatrix();
@@ -46,17 +46,40 @@ fm_ogl_cairo_render_hud(gdouble block_pixels, gfloat total_width, gfloat total_h
         
         //DO DRAWING HERE
 	glBegin(GL_QUADS);
-	glColor3f(0.0f,0.0f,0.0f); glVertex2f(inner_left, total_height-40); 
-	glColor3f(0.0f,0.0f,0.0f); glVertex2f(inner_right, total_height-40); 
-	glColor3f(0.0f,0.0f,0.0f); glVertex2f(inner_right, total_height); 
-	glColor3f(0.0f,0.0f,0.0f); glVertex2f(inner_left, total_height);
+	gint file_entries_length = g_sequence_get_length(file_entries);
+	int entry_i;
+	for(entry_i = 0; entry_i < file_entries_length; entry_i++){
+		gfloat top = total_height-40;
+		gfloat bottom = total_height;
+		gfloat right = inner_right;
+		gfloat left = inner_left;
+
+		gfloat row = entry_i%3;
+		gfloat col = entry_i/3;
+
+		gfloat hud_width = right-left;
+		gfloat hud_height = bottom-top;
+
+		gfloat entry_start[] = {((hud_width/(file_entries_length/3))*col), ((hud_height/3)*row)};
+		gfloat block_side_length = (hud_height/3)-3;
+
+		gfloat entry_left = left+entry_start[0];
+		gfloat entry_right = left+entry_start[0] + block_side_length;
+		gfloat entry_top = entry_start[1];
+		gfloat entry_bottom = entry_start[1] + block_side_length;
+
+		glColor3f(0.0f,0.0f,0.0f); glVertex2f(entry_left, entry_top);
+		glColor3f(0.0f,0.0f,0.0f); glVertex2f(entry_right, entry_top);
+		glColor3f(0.0f,0.0f,0.0f); glVertex2f(entry_right, entry_bottom);
+		glColor3f(0.0f,0.0f,0.0f); glVertex2f(entry_left, entry_bottom);
+	}
 	glEnd();
 
 	glColor3f(1.0f,1.0f,1.0f);
-        
+
         glMatrixMode (GL_PROJECTION);
         glPopMatrix();
-        
+
         glMatrixMode (GL_MODELVIEW);
         glPopMatrix();
         glEnable (GL_TEXTURE_RECTANGLE_ARB);

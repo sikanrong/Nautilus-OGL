@@ -2,8 +2,7 @@
 
 /* fm-ogl-view.c - implementation of effects view of directory.
 
-   Copyright (C) 2000 Eazel, Inc.
-   Copyright (C) 2001, 2002 Anders Carlsson <andersca@gnu.org>
+   Copyright (C) 2008. 2009 Alex Pilafian <sikanrong@gmail.com>
    
    The Gnome Library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public License as
@@ -93,8 +92,6 @@ G_DEFINE_TYPE_WITH_CODE (FMOGLView, fm_ogl_view, FM_TYPE_DIRECTORY_VIEW,
 static const GtkActionEntry ogl_view_entries[] = {
 
 };
-
-
 
 struct FMOGLViewDetails {
 	GtkActionGroup *ogl_action_group;
@@ -438,9 +435,7 @@ ogl_drawing_area_realize_event_callback(GtkWidget *widget, gpointer data)
 {
   GdkGLContext *glcontext = gtk_widget_get_gl_context (widget);
   GdkGLDrawable *gldrawable = gtk_widget_get_gl_drawable (widget);
-	if (gl_shared_context == NULL){
-		gl_shared_context = glcontext;
-	}
+
   /*** OpenGL BEGIN ***/
   if (!gdk_gl_drawable_gl_begin (gldrawable, glcontext))
     return;
@@ -527,7 +522,7 @@ ogl_drawing_area_expose_event_callback (GtkWidget *widget, GdkEventExpose *event
 	 	gfloat total_width = GTK_WIDGET(view->details->drawing_area)->allocation.width;
 	 	gfloat total_height = GTK_WIDGET(view->details->drawing_area)->allocation.height;
 	 	
-		fm_ogl_cairo_render_hud(block_pixels, total_width, total_height, view->details->file_bounding_box);
+		fm_ogl_cairo_render_hud(block_pixels, total_width, total_height, view->details->file_bounding_box, file_details);
 		
 	
   gdk_gl_drawable_gl_end (gldrawable);
@@ -563,6 +558,7 @@ ogl_drawing_area_configure_event_callback (GtkWidget         *widget,
 	 GdkEventConfigure *event,
 	 gpointer           data)
 {
+
   GdkGLContext *glcontext = gtk_widget_get_gl_context (widget);
   GdkGLDrawable *gldrawable = gtk_widget_get_gl_drawable (widget);
 
@@ -596,8 +592,11 @@ ogl_drawing_area_configure_event_callback (GtkWidget         *widget,
 void
 ogl_drawing_area_init(GtkWidget *widget, FMOGLView *ogl_view)
 {
+	if (gl_shared_context == NULL){
+		GdkGLDrawable *gldrawable = gtk_widget_get_gl_drawable (widget);
+		gl_shared_context = gdk_gl_context_new(gldrawable,NULL,TRUE,GDK_GL_RGBA_TYPE);
+	}
 	
-
 	GdkGLConfig *glconfig = gdk_gl_config_new_by_mode (GDK_GL_MODE_RGB   |
 					       GDK_GL_MODE_ALPHA |
 					       GDK_GL_MODE_DEPTH |
